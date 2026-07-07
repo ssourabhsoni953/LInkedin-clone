@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  --color-linkedin-bg: #000000;
+  --color-linkedin-card: #1b1f23;
+  --color-linkedin-border: #38434f;
+  --color-linkedin-primary: #70b5f9;
+  --color-linkedin-text-primary: #e9eaec;
+  --color-linkedin-text-secondary: #8c96a1;
+  --color-linkedin-icon: #8c96a1;
+  --color-linkedin-icon-active: #e9eaec;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-linkedin-bg);
+    color: var(--color-linkedin-text-primary);
+    -webkit-font-smoothing: antialiased;
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
+  }
+}

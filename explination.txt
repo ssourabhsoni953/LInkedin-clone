@@ -1,0 +1,34 @@
+Here is a step-by-step breakdown of exactly how the Navbar works in our LinkedIn clone:
+
+1. The Foundation: React Router (App.jsx)
+For the Navbar to be able to change pages without reloading the browser, it needs access to a router. In App.jsx, we wrapped the entire application inside a <Router> (BrowserRouter from react-router-dom). 
+Because the <Navbar /> is placed *inside* this Router but *outside* the <Routes> block, it remains permanently fixed at the top of the screen no matter which page you navigate to.
+
+2. The Reusable NavItem Component
+Instead of writing the same HTML for every single icon, we created a reusable helper component at the top of Navbar.jsx called NavItem. It accepts several "props" (configurations):
+*   icon: The Lucide React icon to display (e.g., Home, Briefcase).
+*   text: The tiny text below the icon.
+*   path: The URL it should navigate to (e.g., / or /profile).
+*   badge: An optional red notification number (like "1" for Notifications).
+*   isAvatar: A boolean flag to determine if it should render the user's profile picture instead of an icon.
+
+3. Handling Navigation (Click Events)
+Inside the NavItem, we utilize a React Router hook called useNavigate(). 
+When you click an icon, the onClick event checks if a path was provided. If it was, it tells React Router to instantly swap out the page content to that new path, all without a full page reload.
+
+4. Highlighting the Active Page
+To make the Navbar feel alive, it needs to know which page you are currently looking at. We use another hook called useLocation() to grab the current URL path.
+If the current URL matches the NavItem's path, it applies dynamic styling. We use a template literal in the Tailwind className to conditionally apply a white bottom border and white text (instead of gray) so you know exactly which tab is selected.
+
+5. Layout and CSS (Tailwind)
+The main <Navbar /> itself acts as a container:
+*   It is locked to the top of the screen using "fixed top-0 left-0 right-0 z-50".
+*   Inside, a "max-w-[1128px] mx-auto" container ensures the content perfectly aligns with the main feed content below it.
+*   It uses "flex justify-between" to push the Logo/Search to the far left, and the Navigation Icons to the far right.
+
+6. The Search Bar Micro-Animation
+The search bar on the left is wrapped in a relative div. The magnifying glass icon is positioned absolutely inside of it. 
+To mimic LinkedIn's actual behavior, we added a Tailwind transition: "transition-all focus:w-[320px]". When you click (focus) on the search input, it smoothly expands to be slightly wider.
+
+7. Fetching the User's Avatar
+For the "Me" tab, instead of a standard icon, we import currentUser from our mockData.js file. The NavItem detects the isAvatar prop and renders an <img> tag pointing to currentUser.avatar, complete with a tiny "▼" dropdown arrow text next to it.
